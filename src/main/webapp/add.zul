@@ -1,0 +1,52 @@
+<window id="addList" apply="org.zkoss.bind.BindComposer" mode="modal" title="Add Product" closable="true"
+		viewModel="@id('vm')@init('com.hieu.zzzzzzzzzzzzz.MyViewModel')"
+		validationMessages="@id('vmsgs')" width="800px" vflex="1">
+		<grid>
+			<rows>
+				<row>
+					<label value="Name"></label>
+					<textbox value="@bind(vm.product.name)"></textbox>
+				</row>
+				<row>
+					Description:
+					<textbox value="@bind(vm.product.description)"></textbox>
+				</row>
+				<row>
+					Description:
+					<textbox value="@bind(vm.product.image)"></textbox>
+				</row>
+				<row>
+					Price:
+					<textbox value="@bind(vm.product.price)"></textbox>
+				</row>
+				<row>
+					Quantity:
+					<textbox value="@bind(vm.product.quantity)"></textbox>
+				</row>
+				
+				<row>
+					<label value="Category: " class="boxlabel" />
+					<combobox id="cmbSize" width="150px" 
+						model="@load(vm.categoryListModel)" selectedItem="@bind(vm.product.category)">
+						<template name="model">
+							<comboitem label="@load(each.name)"  />
+						</template>
+					</combobox>
+				</row>
+				
+				<row>
+					<label value="@load(vm.product.category.name)"></label>
+				</row>
+				
+			</rows>
+			
+		</grid>
+		<button label="Add"
+			onClick="@command('addProduct', close = addList)">
+		</button>
+	
+	
+</window>
+
+
+

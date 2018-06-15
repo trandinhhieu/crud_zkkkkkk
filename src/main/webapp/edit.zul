@@ -1,0 +1,57 @@
+<window id="editList"  apply="org.zkoss.bind.BindComposer" mode="modal" title="Update" closable="true"
+		viewModel="@id('vm')@init(arg.product)"
+		validationMessages="@id('vmsgs')" width="800px" vflex="1">
+		<grid>
+			<rows>
+				<row>
+					<label value="Name"></label>
+					<textbox value="@bind(vm.name)"><custom-attributes
+					org.zkoss.bind.event.deferPost="true" /></textbox>
+				</row>
+				<row>
+					Description:
+					<textbox value="@bind(vm.description)"><custom-attributes
+					org.zkoss.bind.event.deferPost="true" /></textbox>
+				</row>
+				<row>
+					Image:
+					<textbox value="@bind(vm.image)"><custom-attributes
+					org.zkoss.bind.event.deferPost="true" /></textbox>
+				</row>
+				<row>
+					Price:
+					<textbox value="@bind(vm.price)"><custom-attributes
+					org.zkoss.bind.event.deferPost="true" /></textbox>
+				</row>
+				<row>
+					Quantity:
+					<textbox value="@bind(vm.quantity)"><custom-attributes
+					org.zkoss.bind.event.deferPost="true" /></textbox>
+				</row>
+				
+				<row>
+					<label value="Category: " class="boxlabel" />
+					<combobox viewModel="@id('list') @init(arg.listCat)" id="cmbSize" width="150px"
+						model="@load(list)" selectedItem="@bind(vm.category)">
+						<template name="model">
+							<comboitem label="@load(each.name)"  />
+						</template>
+					</combobox>
+				</row>
+				
+				<row>
+					<label value="@load(vm.category.name)"></label>
+				</row>
+				
+			</rows>
+			
+		</grid>
+		<button label="Edit"
+			onClick="@global-command('editProduct', product = vm, close = editList)">
+		</button>
+	
+	
+</window>
+
+
+

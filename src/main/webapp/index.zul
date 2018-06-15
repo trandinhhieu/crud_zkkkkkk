@@ -1,0 +1,86 @@
+<zk>
+	<style>
+		.lb-content{
+			margin-top:20px !important;
+			width: 80% !important;
+			margin:auto;
+		}
+		.img-avatar{
+			width: 30%;
+			float: left;
+		}
+		.img-content{
+			width: 60%;
+			padding-top: 80px;
+			padding-left: 30px;
+			font-weight: 600;
+		}
+		.box{
+			background-color:#0093F9;
+			height: 37px;
+			width:73px;
+			border-radius: 5px;
+			color: #ffffff;
+			text-align: center;
+		}
+		.box-label{
+			padding-top: 10px;
+			cursor: pointer;
+		}
+	</style>
+	<window apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('com.hieu.zzzzzzzzzzzzz.MyViewModel')"
+			 width="auto" vflex="1" contentStyle="overflow: auto;">
+			<label value="Phân loại: " class="boxlabel" />
+			<combobox id="cmbSize" width="150px" onSelect="@command('searchById')"
+				model="@load(vm.categoryListModel)" selectedItem="@bind(vm.selectedCategory)">
+				<template name="model">
+					<comboitem label="@load(each.name)"  />
+				</template>
+			</combobox>
+			<hbox align="center">
+				<label value="Keyword: " class="boxlabel" />
+				<textbox value="@bind(vm.keyword)" />
+				<button label="Search" image="/upload/search.png" onClick="@command('search')" />
+				<button label="All" image="/upload/search.png" onClick="@command('searchAll')" />
+				<button label="Add" image="/upload/plus.png" onClick="@command('showAddProduct',vm = vm)" />
+			</hbox>
+			<listbox height="400px;" model="@bind(vm.productListModel)" emptyMessage="No car found in the result"
+			selectedItem="@bind(vm.selectedProduct)" style="margin-top:10px">
+				<listhead>
+					<listheader label="ID" />
+					<listheader label="Name" style="width: 20%" />
+					<listheader label="Description" style="width: 40%" />
+					<listheader label="Price" />
+					<listheader label="Quantity" />
+					<listheader label="Option" style="width: 15%" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="@bind(each.id)"></listcell>
+						<listcell label="@bind(each.name)" style="width: 20%"></listcell>
+						<listcell label="@bind(each.description)" style="width: 40%"></listcell>
+						<listcell>$<label value="@bind(each.price)" /></listcell>
+						<listcell label="@bind(each.quantity)"></listcell>
+						<listcell style="width: 15%">
+							<button label="Delete" onClick="@command('deleteProduct', product = each)" />
+							<button label="Edit" onClick="@global-command('showEditProduct', product = each)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<hlayout zclass="lb-content" visible="@bind(not empty vm.selectedProduct)">
+				<image zclass="img-avatar" src="@bind(vm.selectedProduct.url)" />
+				<vbox zclass="img-content">
+					<hlayout>
+						Name : <label value="@bind(vm.selectedProduct.name)" style="font-weight:bold"/>
+					</hlayout>
+					<hlayout>
+						Price : 
+						<span>$<label value="@bind(vm.selectedProduct.price)" style="font-weight:bold"/></span>
+					</hlayout>
+					<label value="@bind(vm.selectedProduct.description)" />
+				</vbox>
+			</hlayout>
+	</window>
+</zk>
